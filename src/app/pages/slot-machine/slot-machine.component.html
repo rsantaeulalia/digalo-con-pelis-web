@@ -1,0 +1,17 @@
+<div class="jumbotron text-center">
+  <h1>
+    <span>{{getMovie()}}</span>
+  </h1>
+
+  <div class="row justify-content-md-center reel">
+    <app-spinner #spinner1 (dispatchPosition)=getPositionOne($event) [items]="getMovieCategories()"></app-spinner>
+    <app-spinner #spinner2 (dispatchPosition)=getPositionTwo($event) [items]="getMovieDecade()"></app-spinner>
+    <app-spinner #spinner3 (dispatchPosition)=getPositionThree($event) [items]="getMoviePopularity()"></app-spinner>
+  </div>
+
+  <div class="row main-btns">
+    <div class="col-md-4">
+      <button type="button" class="btn btn-danger btn-lg btn-spin" (click)="runSpinner()">SPIN</button>
+    </div>
+  </div>
+</div>

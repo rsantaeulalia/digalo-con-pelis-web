@@ -1,0 +1,38 @@
+.jumbotron{
+  padding: 2rem 1rem;
+}
+.main-heading{
+  font-size: 3em;
+}
+#reelImg img{
+  width: 100%;
+  margin: 30% 0px;
+}
+
+.main-btns{
+  margin: 5% 0%;
+}
+
+.btn-spin, .sub-btns button{
+  width: 50%;
+  margin: 2% 0%;
+}
+
+.sub-btns button{
+  padding: 4%;
+}
+
+.reel div {
+  border: 2px solid;
+}
+
+.reel{
+  margin: 5% 0%;
+}
+.credits, .bet-credits{
+  margin: 0% 20%;
+  width: 60%;
+  border: 2px solid black;
+  background-color: black;
+  color: red;
+}
