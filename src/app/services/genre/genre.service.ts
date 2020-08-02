@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {Genre} from '../../model/Genre';
 
 @Injectable({
   providedIn: 'root'
@@ -84,5 +85,9 @@ export class GenreService {
   ];
 
   constructor() {
+  }
+
+  public getCategories(): Array<Genre> {
+    return this.genres.map(genre => new Genre(genre.id, genre.name));
   }
 }
