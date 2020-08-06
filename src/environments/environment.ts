@@ -8,5 +8,6 @@ export const environment = {
     storageBucket: 'digalo-con-pelis.appspot.com',
     messagingSenderId: '852012190670',
     appId: '1:852012190670:web:9c6af2ca8dff2af17cb99f'
-  }
+  },
+  apiKey: '58e2bfadc0795e9edd8bd03cb191af1e'
 };

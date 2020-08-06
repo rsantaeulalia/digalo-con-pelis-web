@@ -1,9 +1,19 @@
-export class Genre {
+export class Decade {
   name: string;
-  value: string;
+  from: string;
+  to: string;
 
-  constructor(name, value) {
-    this.name = name;
-    this.value = value;
+  constructor(decade) {
+    this.name = decade;
+    this.from = Decade.getFromDecadeValue(decade);
+    this.to = Decade.getToDecadeValue(decade);
+  }
+
+  private static getFromDecadeValue(decade: number): string {
+    return `${decade}-01-01`;
+  }
+
+  private static getToDecadeValue(decade: number): string {
+    return `${decade += 9}-01-01`;
   }
 }

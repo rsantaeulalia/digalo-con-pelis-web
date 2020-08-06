@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ComboSelector} from '../../model/ComboSelector';
 
 @Component({
   selector: 'app-spinner',
@@ -7,13 +8,18 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class SpinnerComponent implements OnInit {
   @Output()
-  dispatchPosition = new EventEmitter<string>();
+  dispatchPosition = new EventEmitter<ComboSelector>();
+
   @Input()
-  items: string[];
+  timeoutSpinner: number;
+  @Input()
+  items: Array<ComboSelector>;
 
   stopSpin;
-  currentSym1: string;
-  symbolReel: string[];
+  currentSym1: ComboSelector;
+  symbolReel: Array<ComboSelector>;
+
+  private times = 0;
 
   constructor() {
   }
@@ -25,12 +31,17 @@ export class SpinnerComponent implements OnInit {
 
   stopSpinning(): void {
     clearInterval(this.stopSpin);
+    this.times = 0;
     this.dispatchPosition.emit(this.currentSym1);
   }
 
   spinning(): void {
     this.stopSpin = setInterval(() => {
       this.spin();
+      this.times++;
+      if (this.times === this.timeoutSpinner) {
+        this.stopSpinning();
+      }
     }, 30);
   }
 

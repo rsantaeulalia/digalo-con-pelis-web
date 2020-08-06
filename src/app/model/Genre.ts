@@ -1,6 +1,9 @@
-import {CategoryEnum} from './CategoryEnum';
-
-export interface Category {
+export class Genre {
   name: string;
-  value: CategoryEnum;
+  value: string;
+
+  constructor(name, value) {
+    this.name = name;
+    this.value = value;
+  }
 }
