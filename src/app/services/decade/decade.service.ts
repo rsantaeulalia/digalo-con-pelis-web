@@ -12,6 +12,6 @@ export class DecadeService {
   private decades = [1960, 1970, 1980, 1990, 2000, 2010, 2020];
 
   getDecades(): Array<Decade> {
-    return this.decades.map(decade => new Decade(decade.toString()));
+    return this.decades.map(decade => new Decade(decade));
   }
 }
