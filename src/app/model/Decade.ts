@@ -14,6 +14,6 @@ export class Decade {
   }
 
   private static getToDecadeValue(decade: number): string {
-    return `${decade += 9}-01-01`;
+    return `${decade += 9}-12-31`;
   }
 }

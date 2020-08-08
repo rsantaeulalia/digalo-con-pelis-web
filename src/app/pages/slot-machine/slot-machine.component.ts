@@ -26,12 +26,13 @@ export class SlotMachineComponent implements OnInit {
   private decades = Array<Decade>();
 
   private movies = Array<Movie>();
+  private pastSelectedMovies = Array<number>();
 
-  private selectedCategory: Category;
   private selectedGenre: Genre;
   private selectedDecade: Decade;
   private selectedMovie: Movie;
   private errorMessage: any;
+  private pickingMovie = false;
 
   constructor(private movieService: MovieService,
               private genreService: GenreService,
@@ -46,8 +47,8 @@ export class SlotMachineComponent implements OnInit {
   }
 
   getMovie(): void {
-    if (this.selectedCategory && this.selectedGenre && this.selectedDecade) {
-      this.movieService.getMoviesByCriteria(this.selectedCategory, this.selectedGenre, this.selectedDecade).subscribe(response =>
+    if (this.selectedDecade && this.selectedGenre) {
+      this.movieService.getMoviesByCriteria(this.selectedGenre, this.selectedDecade).subscribe(response =>
           this.movies = response.results
         , error => {
           this.handleError(error);
@@ -60,14 +61,13 @@ export class SlotMachineComponent implements OnInit {
 
   runSpinner(): any {
     this.clear();
+    this.pickingMovie = true;
     this.spinner1.spinning();
     this.spinner2.spinning();
-    this.spinner3.spinning();
   }
 
   private clear(): void {
     this.selectedDecade = null;
-    this.selectedCategory = null;
     this.selectedGenre = null;
     this.selectedMovie = null;
   }
@@ -83,7 +83,7 @@ export class SlotMachineComponent implements OnInit {
   }
 
   getPositionThree($event: ComboSelector): void {
-    this.selectedCategory = new Category($event.name, $event.value);
+    //this.selectedCategory = new Category($event.name, $event.value);
     this.getMovie();
   }
 
@@ -104,8 +104,13 @@ export class SlotMachineComponent implements OnInit {
   }
 
   private pickRandomMovie(): void {
-    const randomNum1 = Math.floor(Math.random() * (this.movies.length - 1));
-    this.selectedMovie = this.movies[randomNum1];
+    do {
+      const randomNum1 = Math.floor(Math.random() * (this.movies.length - 1));
+      this.selectedMovie = this.movies[randomNum1];
+      this.pastSelectedMovies.push(this.selectedMovie.id);
+    }
+    while (!this.pastSelectedMovies.some(id => id === this.selectedMovie.id));
+    this.pickingMovie = false;
   }
 
   getSelectedMovie(): Movie {
@@ -114,5 +119,9 @@ export class SlotMachineComponent implements OnInit {
 
   isMovieSelected(): boolean {
     return isNotNullOrUndefined(this.selectedMovie);
+  }
+
+  isMovieLoading(): boolean {
+    return this.pickingMovie;
   }
 }

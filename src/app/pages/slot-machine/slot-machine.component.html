@@ -4,8 +4,8 @@
                  [items]="getMovieGenres()"></app-spinner>
     <app-spinner #spinner2 (dispatchPosition)=getPositionTwo($event) [timeoutSpinner]="80"
                  [items]="getMovieDecades()"></app-spinner>
-    <app-spinner #spinner3 (dispatchPosition)=getPositionThree($event) [timeoutSpinner]="100"
-                 [items]="getMovieCategories()"></app-spinner>
+<!--    <app-spinner #spinner3 (dispatchPosition)=getPositionThree($event) [timeoutSpinner]="100"-->
+<!--                 [items]="getMovieCategories()"></app-spinner>-->
   </div>
 
   <div class="row justify-content-md-center">
@@ -18,8 +18,11 @@
         <p>{{this.getSelectedMovie().overview}}</p>
       </div>
     </div>
-    <div *ngIf="!this.isMovieSelected()">
+    <div *ngIf="!this.isMovieSelected() && !this.isMovieLoading()">
       <img src="/assets/popcorn.png" alt="Movie poster" style="width:100%">
+    </div>
+    <div *ngIf="this.isMovieLoading()" class="tenor-gif-embed" data-postid="15064055" data-share-method="host">
+      <img src="/assets/popcorn-loading.gif" alt="Movie gif popcorn" style="width:100%">
     </div>
   </div>
 
