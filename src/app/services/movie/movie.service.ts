@@ -9,7 +9,7 @@ import {environment} from '../../../environments/environment';
   providedIn: 'root'
 })
 export class MovieService {
-  private baseUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${environment.apiKey}&language=es-AR&region=US&include_adult=false&include_video=false&page={pageNumber}&release_date.gte={releaseDateFrom}&release_date.lte={releaseDateTo}&with_genres={genre}`;
+  private baseUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${environment.apiKey}&language=es-MX&region=US&include_adult=false&include_video=false&page={pageNumber}&release_date.gte={releaseDateFrom}&release_date.lte={releaseDateTo}&with_genres={genre}`;
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -27,7 +27,7 @@ export class MovieService {
       .replace('{releaseDateTo}', decade.to)
       .replace('{genre}', genre.value)
       .replace('{pageNumber}', '1');
-
+    debugger;
     return this.http.get<any>(url, this.httpOptions);
   }
 

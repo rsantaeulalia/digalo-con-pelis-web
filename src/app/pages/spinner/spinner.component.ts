@@ -11,8 +11,6 @@ export class SpinnerComponent implements OnInit {
   dispatchPosition = new EventEmitter<ComboSelector>();
 
   @Input()
-  timeoutSpinner: number;
-  @Input()
   items: Array<ComboSelector>;
 
   stopSpin;
@@ -35,11 +33,11 @@ export class SpinnerComponent implements OnInit {
     this.dispatchPosition.emit(this.currentSym1);
   }
 
-  spinning(): void {
+  spinning(timeoutSpinner: number): void {
     this.stopSpin = setInterval(() => {
       this.spin();
       this.times++;
-      if (this.times === this.timeoutSpinner) {
+      if (this.times === timeoutSpinner) {
         this.stopSpinning();
       }
     }, 30);

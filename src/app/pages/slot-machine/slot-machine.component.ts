@@ -2,8 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {SpinnerComponent} from '../spinner/spinner.component';
 import {GenreService} from '../../services/genre/genre.service';
 import {Genre} from '../../model/Genre';
-import {Category} from '../../model/Category';
-import {CategoryService} from '../../services/category/category.service';
 import {ComboSelector} from '../../model/ComboSelector';
 import {DecadeService} from '../../services/decade/decade.service';
 import {Decade} from '../../model/Decade';
@@ -17,12 +15,17 @@ import {isNotNullOrUndefined} from 'codelyzer/util/isNotNullOrUndefined';
   styleUrls: ['./slot-machine.component.scss']
 })
 export class SlotMachineComponent implements OnInit {
+
+
+  constructor(private movieService: MovieService,
+              private genreService: GenreService,
+              private decadeService: DecadeService) {
+  }
+
   @ViewChild('spinner1') spinner1: SpinnerComponent;
   @ViewChild('spinner2') spinner2: SpinnerComponent;
-  @ViewChild('spinner3') spinner3: SpinnerComponent;
 
   private genres = Array<Genre>();
-  private categories = Array<Category>();
   private decades = Array<Decade>();
 
   private movies = Array<Movie>();
@@ -34,15 +37,13 @@ export class SlotMachineComponent implements OnInit {
   private errorMessage: any;
   private pickingMovie = false;
 
-  constructor(private movieService: MovieService,
-              private genreService: GenreService,
-              private categoryService: CategoryService,
-              private decadeService: DecadeService) {
+  private static countWords(title: string): string {
+    const words = title.trim().split(' ').length;
+    return words > 1 ? `${words} palabras` : `${words} palabra`;
   }
 
   ngOnInit(): any {
     this.genres = this.genreService.getGenres();
-    this.categories = this.categoryService.getCategories();
     this.decades = this.decadeService.getDecades();
   }
 
@@ -62,8 +63,8 @@ export class SlotMachineComponent implements OnInit {
   runSpinner(): any {
     this.clear();
     this.pickingMovie = true;
-    this.spinner1.spinning();
-    this.spinner2.spinning();
+    this.spinner1.spinning(this.getTimeOutSpinner());
+    this.spinner2.spinning(this.getTimeOutSpinner());
   }
 
   private clear(): void {
@@ -82,21 +83,12 @@ export class SlotMachineComponent implements OnInit {
     this.getMovie();
   }
 
-  getPositionThree($event: ComboSelector): void {
-    //this.selectedCategory = new Category($event.name, $event.value);
-    this.getMovie();
-  }
-
   getMovieGenres(): Array<ComboSelector> {
     return this.genres.map(genre => new ComboSelector(genre.name, genre.value));
   }
 
   getMovieDecades(): Array<ComboSelector> {
     return this.decades.map(decade => new ComboSelector(decade.name, decade.name));
-  }
-
-  getMovieCategories(): Array<ComboSelector> {
-    return this.categories.map(category => new ComboSelector(category.name, category.value));
   }
 
   private handleError(error: any): void {
@@ -123,5 +115,13 @@ export class SlotMachineComponent implements OnInit {
 
   isMovieLoading(): boolean {
     return this.pickingMovie;
+  }
+
+  getSelectedMovieTitle(): string {
+    return `${this.selectedMovie.title} (${SlotMachineComponent.countWords(this.selectedMovie.title)})`;
+  }
+
+  getTimeOutSpinner(): number {
+    return Math.floor(Math.random() * 100) + 40;
   }
 }

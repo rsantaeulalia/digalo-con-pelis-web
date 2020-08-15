@@ -1,11 +1,9 @@
 <div class="container text-center">
   <div class="row justify-content-md-center reel">
-    <app-spinner #spinner1 (dispatchPosition)=getPositionOne($event) [timeoutSpinner]="50"
+    <app-spinner #spinner1 (dispatchPosition)=getPositionOne($event)
                  [items]="getMovieGenres()"></app-spinner>
-    <app-spinner #spinner2 (dispatchPosition)=getPositionTwo($event) [timeoutSpinner]="80"
+    <app-spinner #spinner2 (dispatchPosition)=getPositionTwo($event)
                  [items]="getMovieDecades()"></app-spinner>
-<!--    <app-spinner #spinner3 (dispatchPosition)=getPositionThree($event) [timeoutSpinner]="100"-->
-<!--                 [items]="getMovieCategories()"></app-spinner>-->
   </div>
 
   <div class="row justify-content-md-center">
@@ -13,7 +11,7 @@
       <img src="https://image.tmdb.org/t/p/original{{this.getSelectedMovie().poster_path}}" alt="Movie poster"
            style="width:100%">
       <div class="container">
-        <h4><b>{{this.getSelectedMovie().title}}</b></h4>
+        <h4><b>{{this.getSelectedMovieTitle()}}</b></h4>
         <p>{{this.getSelectedMovie().original_title}}</p>
         <p>{{this.getSelectedMovie().overview}}</p>
       </div>
@@ -28,7 +26,7 @@
 
   <div class="row main-btns justify-content-md-center">
     <div class="col-md-4">
-      <button type="button" class="btn btn-danger btn-lg btn-spin" (click)="runSpinner()">Mandale mecha!</button>
+      <button type="button" class="btn btn-danger btn-lg btn-spin font-weight-bold" (click)="runSpinner()">Mandale mecha!</button>
     </div>
   </div>
 </div>
