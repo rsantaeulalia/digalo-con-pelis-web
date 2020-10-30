@@ -50,7 +50,7 @@ export class SlotMachineComponent implements OnInit {
   getMovie(): void {
     if (this.selectedDecade && this.selectedGenre) {
       this.movieService.getMoviesByCriteria(this.selectedGenre, this.selectedDecade).subscribe(response =>
-          this.movies = response.results
+          this.movies = response
         , error => {
           this.handleError(error);
         }, () => {
