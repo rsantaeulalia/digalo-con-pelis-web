@@ -9,9 +9,18 @@ export class DecadeService {
   constructor() {
   }
 
-  private decades = [1960, 1965, 1970, 1975, 1980, 1985, 1990, 1995, 2000, 2005, 2010, 2015, 2020];
-
   getDecades(): Array<Decade> {
-    return this.decades.map(decade => new Decade(decade));
+    return this.generateArrayOfYears().map(year => new Decade(year));
+  }
+
+  generateArrayOfYears(): Array<number> {
+    const max = new Date().getFullYear();
+    const min = max - 50;
+    const years = [];
+
+    for (let i = max; i >= min; i--) {
+      years.push(i);
+    }
+    return years;
   }
 }

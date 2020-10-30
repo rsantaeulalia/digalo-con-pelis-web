@@ -5,15 +5,15 @@ export class Decade {
 
   constructor(decade) {
     this.name = decade;
-    this.from = Decade.getFromDecadeValue(decade);
-    this.to = Decade.getToDecadeValue(decade);
+    this.from = Decade.getFromYearValue(decade);
+    this.to = Decade.getToYearValue(decade);
   }
 
-  private static getFromDecadeValue(decade: number): string {
+  private static getFromYearValue(decade: number): string {
     return `${decade}-01-01`;
   }
 
-  private static getToDecadeValue(decade: number): string {
-    return `${decade += 4}-12-31`;
+  private static getToYearValue(decade: number): string {
+    return `${decade}-12-31`;
   }
 }
